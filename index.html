@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manitas de Ensueño | Punto de Venta</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <!-- ==============================
+         BARRA LATERAL
+    =============================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img src="img/logo.png" alt="Manitas de Ensueño">
+            </div>
+
+            <div>
+                <h1>Manitas</h1>
+                <span>de Ensueño</span>
+            </div>
+
+        </div>
+
+        <nav class="menu">
+
+            <button class="menu-item active" data-section="dashboard">
+                <span>▦</span>
+                Dashboard
+            </button>
+
+            <button class="menu-item" data-section="ventas">
+                <span>🛒</span>
+                Punto de Venta
+            </button>
+
+            <button class="menu-item" data-section="inventario">
+                <span>📦</span>
+                Inventario
+            </button>
+
+            <button class="menu-item" data-section="clientes">
+                <span>👥</span>
+                Clientes
+            </button>
+
+            <button class="menu-item" data-section="historial">
+                <span>🧾</span>
+                Historial
+            </button>
+
+            <button class="menu-item" data-section="caja">
+                <span>💰</span>
+                Caja
+            </button>
+
+            <button class="menu-item" data-section="reportes">
+                <span>📊</span>
+                Reportes
+            </button>
+
+            <button class="menu-item" data-section="configuracion">
+                <span>⚙️</span>
+                Configuración
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>POS Manitas de Ensueño</span>
+            <small>Versión 1.0</small>
+        </div>
+
+    </aside>
+
+
+    <!-- ==============================
+         CONTENIDO PRINCIPAL
+    =============================== -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h2 id="section-title">Dashboard</h2>
+                <p id="current-date"></p>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="status">
+                    <span class="status-dot"></span>
+                    Sistema activo
+                </div>
+
+                <button class="quick-sale" onclick="mostrarSeccion('ventas')">
+                    + Nueva venta
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ==============================
+             DASHBOARD
+        =============================== -->
+
+        <section id="dashboard" class="section active">
+
+            <div class="welcome">
+                <div>
+                    <h2>Bienvenido a Manitas de Ensueño</h2>
+                    <p>
+                        Administra tus ventas, productos e inventario
+                        desde un solo lugar.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+
+                    <div>
+                        <span>Ventas del día</span>
+                        <strong id="ventas-dia">$0.00</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+
+                    <div>
+                        <span>Productos</span>
+                        <strong id="total-productos">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+
+                    <div>
+                        <span>Clientes</span>
+                        <strong id="total-clientes">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card warning">
+                    <div class="stat-icon">⚠️</div>
+
+                    <div>
+                        <span>Stock bajo</span>
+                        <strong id="stock-bajo">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Accesos rápidos</h3>
+                            <p>Funciones principales</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-grid">
+
+                        <button onclick="mostrarSeccion('ventas')">
+                            <span>🛒</span>
+                            <strong>Nueva venta</strong>
+                            <small>Realizar una venta</small>
+                        </button>
+
+                        <button onclick="mostrarSeccion('inventario')">
+                            <span>📦</span>
+                            <strong>Inventario</strong>
+                            <small>Administrar productos</small>
+                        </button>
+
+                        <button onclick="mostrarSeccion('historial')">
+                            <span>🧾</span>
+                            <strong>Historial</strong>
+                            <small>Ver ventas</small>
+                        </button>
+
+                        <button onclick="mostrarSeccion('reportes')">
+                            <span>📊</span>
+                            <strong>Reportes</strong>
+                            <small>Consultar resultados</small>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Estado del inventario</h3>
+                            <p>Productos que requieren atención</p>
+                        </div>
+
+                    </div>
+
+                    <div id="alertas-inventario" class="inventory-alerts">
+
+                        <div class="empty-state">
+                            <span>✓</span>
+                            <p>No hay alertas de inventario.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             PUNTO DE VENTA
+        =============================== -->
+
+        <section id="ventas" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Punto de Venta</h2>
+                    <p>Realiza una nueva venta.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+
+                <div>🛒</div>
+
+                <h2>Punto de Venta</h2>
+
+                <p>
+                    Este módulo será conectado al inventario
+                    en la siguiente fase.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             INVENTARIO
+        =============================== -->
+
+        <section id="inventario" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Inventario</h2>
+                    <p>Administra todos los productos de tu tienda.</p>
+                </div>
+
+                <button class="primary-button" onclick="abrirModalProducto()">
+                    + Agregar producto
+                </button>
+
+            </div>
+
+
+            <div class="inventory-toolbar">
+
+                <div class="search-box">
+
+                    <span>🔎</span>
+
+                    <input
+                        type="text"
+                        id="buscar-producto"
+                        placeholder="Buscar producto o código..."
+                    >
+
+                </div>
+
+
+                <select id="filtro-categoria">
+
+                    <option value="">Todas las categorías</option>
+
+                </select>
+
+
+                <select id="filtro-stock">
+
+                    <option value="">Todo el inventario</option>
+                    <option value="bajo">Stock bajo</option>
+                    <option value="agotado">Agotados</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="panel inventory-panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Producto</th>
+                                <th>Código</th>
+                                <th>Categoría</th>
+                                <th>Costo</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="tabla-productos">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CLIENTES
+        =============================== -->
+
+        <section id="clientes" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Clientes</h2>
+                    <p>Administra tu base de clientes.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+                <div>👥</div>
+                <h2>Módulo de clientes</h2>
+                <p>Se habilitará en una próxima fase.</p>
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             HISTORIAL
+        =============================== -->
+
+        <section id="historial" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Historial de ventas</h2>
+                    <p>Consulta todas las operaciones realizadas.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+                <div>🧾</div>
+                <h2>Historial</h2>
+                <p>Se habilitará cuando terminemos el Punto de Venta.</p>
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CAJA
+        =============================== -->
+
+        <section id="caja" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Caja</h2>
+                    <p>Control de efectivo y movimientos.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+                <div>💰</div>
+                <h2>Control de caja</h2>
+                <p>Se habilitará en una próxima fase.</p>
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             REPORTES
+        =============================== -->
+
+        <section id="reportes" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Reportes</h2>
+                    <p>Consulta el rendimiento de tu negocio.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+                <div>📊</div>
+                <h2>Reportes</h2>
+                <p>Se habilitarán después de terminar las ventas.</p>
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CONFIGURACIÓN
+        =============================== -->
+
+        <section id="configuracion" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Configuración</h2>
+                    <p>Personaliza tu sistema.</p>
+                </div>
+
+            </div>
+
+            <div class="coming-soon">
+                <div>⚙️</div>
+                <h2>Configuración</h2>
+                <p>Este módulo se desarrollará posteriormente.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==============================
+         MODAL PRODUCTO
+    =============================== -->
+
+    <div id="modal-producto" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2 id="modal-titulo">Agregar producto</h2>
+                    <p>Introduce la información del producto.</p>
+                </div>
+
+                <button class="close-button" onclick="cerrarModalProducto()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="form-producto">
+
+                <input type="hidden" id="producto-id">
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Nombre del producto *</label>
+
+                        <input
+                            type="text"
+                            id="producto-nombre"
+                            required
+                            placeholder="Ej. Rosa eterna"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Código *</label>
+
+                        <input
+                            type="text"
+                            id="producto-codigo"
+                            required
+                            placeholder="Ej. ME-001"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Categoría *</label>
+
+                        <input
+                            type="text"
+                            id="producto-categoria"
+                            required
+                            placeholder="Ej. Decoración"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Proveedor</label>
+
+                        <input
+                            type="text"
+                            id="producto-proveedor"
+                            placeholder="Nombre del proveedor"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Costo</label>
+
+                        <input
+                            type="number"
+                            id="producto-costo"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Precio de venta *</label>
+
+                        <input
+                            type="number"
+                            id="producto-precio"
+                            min="0"
+                            step="0.01"
+                            required
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Stock actual *</label>
+
+                        <input
+                            type="number"
+                            id="producto-stock"
+                            min="0"
+                            step="1"
+                            required
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Stock mínimo</label>
+
+                        <input
+                            type="number"
+                            id="producto-stock-minimo"
+                            min="0"
+                            step="1"
+                            value="3"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="cerrarModalProducto()"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Guardar producto
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/db.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/inventario.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
